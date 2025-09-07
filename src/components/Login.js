@@ -15,6 +15,11 @@ const Login = () => {
       </div>
       <form className="absolute w-4/12 p-12 bg-black/60 my-30 mx-auto right-0 left-0 text-white rounded-lg">
         <h1 className="font-bold text-3xl">{isSignInForm? "Sign In":"Sign Up"}</h1>
+        {!isSignInForm && <input
+          type="text"
+          placeholder="Full Name"
+          className="p-4 my-4 w-full bg-gray-700 rounded-lg"
+        ></input>}
         <input
           type="text"
           placeholder="Email or mobile number"
