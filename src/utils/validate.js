@@ -1,5 +1,8 @@
 
 export const checkValidData = (email, password) => {
+    if(email.length==0){
+        return 'Email is required.'
+    }
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if(!emailRegex.test(email)){
         return 'Please enter a valid email address.'
