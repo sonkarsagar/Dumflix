@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
+import { USER } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setisSignInForm] = useState(true)
@@ -25,7 +26,7 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           updateProfile(userCredential.user, {
-            displayName: uName.current.value, photoURL: "https://avatars.githubusercontent.com/u/110252895?v=4"
+            displayName: uName.current.value, photoURL: { USER }
           }).then(() => {
             navigate("/browse")
           }).catch((error) => {
