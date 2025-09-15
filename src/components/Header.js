@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../utils/firebase";
 import { useDispatch } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { useEffect } from 'react';
@@ -22,7 +21,7 @@ const Header = () => {
     });
   }
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(addUser({ uid, email, displayName, photoURL }))
@@ -30,12 +29,13 @@ const Header = () => {
         dispatch(removeUser())
       }
     });
+    return () => unsubscribe();
   }, []);
   return (
     <div className='absolute flex justify-between p-4 z-50 w-full'>
       <img className='w-53 p-2' src={LOGO} alt='logo' />
       {user && <div className="flex">
-        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName}</button>
+        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName || "Profile"}</button>
       </div>}
     </div>
   )

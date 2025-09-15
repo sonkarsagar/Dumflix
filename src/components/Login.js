@@ -26,7 +26,7 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           updateProfile(userCredential.user, {
-            displayName: uName.current.value, photoURL: { USER }
+            displayName: uName.current.value, photoURL: USER
           }).then(() => {
             navigate("/browse")
           }).catch((error) => {
