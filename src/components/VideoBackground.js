@@ -6,8 +6,8 @@ export const VideoBackground = ({ movieId }) => {
   const trailerVideo = useSelector((state) => state.movie.trailerVideo);
   if (!trailerVideo) return null;
   return (
-    <div className="w-full">
-      <iframe className="w-full aspect-video"
+    <div className="w-screen">
+      <iframe className="w-screen aspect-video"
         src={"https://www.youtube.com/embed/" + trailerVideo.key + "?autoplay=1&mute=1"}
         title="YouTube video player"
         frameBorder="0"
