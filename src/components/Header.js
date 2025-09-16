@@ -12,7 +12,6 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(user)
   const handleSignOut = () => {
     signOut(auth).then(() => {
       navigate("/");
@@ -32,7 +31,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className='absolute flex justify-between p-4 z-50 w-full'>
+    <div className='absolute flex justify-between p-4 z-50 w-full bg-gradient-to-b from-black/100 via-black/20 to-transparent'>
       <img className='w-53 p-2' src={LOGO} alt='logo' />
       {user && <div className="flex">
         <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName || "Profile"}</button>

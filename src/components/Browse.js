@@ -1,10 +1,16 @@
 import Header from './Header'
+import { useaddNowPlayingMovies } from '../hooks/useaddNowPlayingMovies';
+import { MainContainer } from './MainContainer';
+import { SecondaryContainer } from './SecondaryContainer';
 
 const Browse = () => {
+  useaddNowPlayingMovies();
   return (
-    <div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black">
+    <div className=''>
+      <div className="overflow-x-hidden absolute inset-0">
         <Header />
+        <MainContainer />
+        <SecondaryContainer />
       </div>
     </div>
   )
