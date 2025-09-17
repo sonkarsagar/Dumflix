@@ -1,10 +1,12 @@
 import Header from './Header'
-import { useaddNowPlayingMovies } from '../hooks/useaddNowPlayingMovies';
+import { useaddNowPlayingMovies, useaddPopularMovies } from '../hooks/useaddNowPlayingMovies';
+import { useaddPopularMovies } from '../hooks/useaddPopularMovies';
 import { MainContainer } from './MainContainer';
 import { SecondaryContainer } from './SecondaryContainer';
 
 const Browse = () => {
   useaddNowPlayingMovies();
+  useaddPopularMovies();
   return (
     <div className=''>
       <div className="overflow-x-hidden hide-scrollbar absolute inset-0">
