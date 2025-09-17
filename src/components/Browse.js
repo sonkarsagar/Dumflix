@@ -7,7 +7,7 @@ const Browse = () => {
   useaddNowPlayingMovies();
   return (
     <div className=''>
-      <div className="overflow-x-hidden absolute inset-0">
+      <div className="overflow-x-hidden hide-scrollbar absolute inset-0">
         <Header />
         <MainContainer />
         <SecondaryContainer />
