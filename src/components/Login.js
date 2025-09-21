@@ -3,14 +3,12 @@ import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { BG_IMG, USER } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setisSignInForm] = useState(true)
   const [errorMessage, seterrorMessage] = useState(null)
-  const navigate = useNavigate();
   const email = useRef(null)
   const password = useRef(null)
   const uName = useRef(null)
@@ -23,12 +21,14 @@ const Login = () => {
     seterrorMessage(message)
     if (message) return;
     if (!isSignInForm) {
+      console.log(uName.current.value);
+      console.log(email.current.value);
+      console.log(password.current.value);
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           updateProfile(userCredential.user, {
             displayName: uName.current.value, photoURL: USER
           }).then(() => {
-            navigate("/browse")
           }).catch((error) => {
             seterrorMessage(error)
           });
@@ -41,13 +41,11 @@ const Login = () => {
     } else {
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          navigate("/browse")
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           seterrorMessage(errorCode + " - " + errorMessage)
-
         });
     }
   }

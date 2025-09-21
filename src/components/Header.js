@@ -17,11 +17,7 @@ const Header = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleSignOut = () => {
-    signOut(auth).then(() => {
-      navigate("/");
-    }).catch((error) => {
-      navigate("/error");
-    });
+    signOut(auth).then(() => { }).catch((error) => { });
   }
   const handleLanguageChange = (e) => {
     dispatch(changeLanguage(e.target.value))
@@ -30,12 +26,17 @@ const Header = () => {
     dispatch(toggleGPTSearch());
   }
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const { uid, email, displayName, photoURL } = user;
+        while (!auth.currentUser.displayName) {
+          await user.reload();
+        }
+        const { uid, email, displayName, photoURL } = auth.currentUser;
         dispatch(addUser({ uid, email, displayName, photoURL }))
+        navigate("/browse")
       } else {
         dispatch(removeUser())
+        navigate("/")
       }
     });
     return () => unsubscribe();
@@ -50,7 +51,7 @@ const Header = () => {
           ))}
         </select>}
         <button className='px-3 my-7 mx-2 bg-purple-800 text-white rounded-lg cursor-pointer' onClick={handleGPTSearch}>{!gptState.gptToggle ? "GPT Search" : "Homepage"}</button>
-        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName || "Profile"}</button>
+        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName.split(" ")[0]  || "Profile"}</button>
       </div>}
     </div>
   )
