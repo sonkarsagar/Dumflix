@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
-import { USER } from "../utils/constants";
+import { BG_IMG, USER } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setisSignInForm] = useState(true)
@@ -56,7 +56,7 @@ const Login = () => {
       <div className='absolute'>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black"></div>
         <Header />
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/8d617e19-3c3c-4c28-8998-c9b14dbc7200/web/IN-en-20250901-TRIFECTA-perspective_48d84d4e-9558-46b8-a0f3-8b2dc8478431_large.jpg" />
+        <img src={BG_IMG} />
       </div>
       <form onSubmit={(e) => e.preventDefault()} className="absolute w-4/12 p-12 bg-black/60 my-30 mx-auto right-0 left-0 text-white rounded-lg">
         <h1 className="font-bold text-3xl">{isSignInForm ? "Sign In" : "Sign Up"}</h1>

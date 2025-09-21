@@ -5,18 +5,26 @@ import { useaddTopRatedMovies } from '../hooks/useaddTopRatedMovies';
 import { useaddUpcomingMovies } from '../hooks/useUpcomingMovies';
 import { MainContainer } from './MainContainer';
 import { SecondaryContainer } from './SecondaryContainer';
+import { useSelector } from 'react-redux';
+import { GPTSearch } from './GPTSearch';
 
 const Browse = () => {
   useaddNowPlayingMovies();
   useaddPopularMovies();
   useaddTopRatedMovies();
   useaddUpcomingMovies();
+  const gptState = useSelector((state) => state.gpt);
   return (
     <div className=''>
       <div className="overflow-x-hidden hide-scrollbar absolute inset-0">
         <Header />
-        <MainContainer />
-        <SecondaryContainer />
+        {gptState.gptToggle ?
+          <GPTSearch /> :
+          <>
+            <MainContainer />
+            <SecondaryContainer />
+          </>
+        }
       </div>
     </div>
   )
