@@ -27,15 +27,13 @@ export const GPTSearchBar = () => {
         const data = gptMovies.map(movie => searchMovieTMDB(movie))
 
         const tmdbResults = await Promise.all(data)
-        console.log(gptMovies);
-        console.log(tmdbResults);
 
         dispatch(addGPTMovies({ gptMovies, tmdbResults }))
     }
     return (
         
         <div className='pt-[10%] flex justify-center'>
-            <form onSubmit={(e) => e.preventDefault()} className='m-4 w-1/2 bg-black grid grid-cols-12 rounded-lg'>
+            <form onSubmit={(e) => e.preventDefault()} className='m-4 mt-0 w-1/2 bg-black grid grid-cols-12 rounded-lg'>
                 <input
                     ref={searchText}
                     type="text"
