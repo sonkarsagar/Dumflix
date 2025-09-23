@@ -4,8 +4,6 @@ import { MovieList } from './MovieList'
 export const GPTMovieSuggestions = () => {
   const { gptMovies, gptMoviesResults } = useSelector(store => store.gpt)
   if (!gptMovies) return null;
-  console.log(gptMovies);
-  console.log(gptMoviesResults);
   
   return (
     <div className='p-3 m-5 mt-0 bg-black/75 text-white'>

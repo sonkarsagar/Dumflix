@@ -8,13 +8,15 @@ import { addUser, removeUser } from '../utils/userSlice';
 import { useEffect } from 'react';
 import { LOGO, SUPPORTED_LANGUAGES } from '../utils/constants';
 import { toggleGPTSearch } from '../utils/gptslice';
-import { GPTSearch } from './GPTSearch';
 import { changeLanguage } from "../utils/configSlice"
+import { addGPTMovies } from '../utils/gptslice'
 
 const Header = () => {
   const navigate = useNavigate();
   const gptState = useSelector((state) => state.gpt);
   const user = useSelector((state) => state.user);
+  console.log(user);
+  
   const dispatch = useDispatch();
   const handleSignOut = () => {
     signOut(auth).then(() => { }).catch((error) => { });
@@ -23,6 +25,7 @@ const Header = () => {
     dispatch(changeLanguage(e.target.value))
   }
   const handleGPTSearch = () => {
+    dispatch(addGPTMovies({ gptMovies: null, tmdbResults: null }))
     dispatch(toggleGPTSearch());
   }
   useEffect(() => {
@@ -51,7 +54,7 @@ const Header = () => {
           ))}
         </select>}
         <button className='px-3 my-7 mx-2 bg-purple-800 text-white rounded-lg cursor-pointer' onClick={handleGPTSearch}>{!gptState.gptToggle ? "GPT Search" : "Homepage"}</button>
-        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName.split(" ")[0]  || "Profile"}</button>
+        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName.split(" ")[0] || "Profile"}</button>
       </div>}
     </div>
   )
