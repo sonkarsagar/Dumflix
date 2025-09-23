@@ -10,13 +10,13 @@ import { LOGO, SUPPORTED_LANGUAGES } from '../utils/constants';
 import { toggleGPTSearch } from '../utils/gptslice';
 import { changeLanguage } from "../utils/configSlice"
 import { addGPTMovies } from '../utils/gptslice'
+import { AVATAR } from '../utils/constants';
 
 const Header = () => {
   const navigate = useNavigate();
   const gptState = useSelector((state) => state.gpt);
   const user = useSelector((state) => state.user);
-  console.log(user);
-  
+
   const dispatch = useDispatch();
   const handleSignOut = () => {
     signOut(auth).then(() => { }).catch((error) => { });
@@ -45,16 +45,20 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className='absolute flex justify-between p-4 z-50 w-full bg-gradient-to-b from-black/100 via-black/20 to-transparent'>
-      <img className='w-53 p-2' src={LOGO} alt='logo' />
+    <div className={`absolute flex justify-between p-4 z-50 w-full bg-gradient-to-b from-black/100 via-black/20 to-transparent ${user ? "pt-0" : ""}`}>
+      <img className={`w-53 ${user ? "p-2" : "p-1"}`} src={LOGO} alt='logo' />
       {user && <div className="flex">
-        {gptState.gptToggle && <select className="text-sm my-7 text-white rounded-lg cursor-pointer bg-gray-800" onChange={handleLanguageChange}>
+        {gptState.gptToggle && <select className="text-sm my-7 mr-1.5 text-white rounded-lg cursor-pointer bg-gray-800" onChange={handleLanguageChange}>
           {SUPPORTED_LANGUAGES.map(lang => (
             <option key={lang.code} value={lang.code}>{lang.label}</option>
           ))}
         </select>}
-        <button className='px-3 my-7 mx-2 bg-purple-800 text-white rounded-lg cursor-pointer' onClick={handleGPTSearch}>{!gptState.gptToggle ? "GPT Search" : "Homepage"}</button>
-        <button className='cursor-pointer font-bold text-white text-xl underline' onClick={handleSignOut}>{user.displayName.split(" ")[0] || "Profile"}</button>
+        <button className='px-1.5 my-6.5 mr-1.5 bg-purple-800 text-white rounded-lg cursor-pointer' onClick={handleGPTSearch}>{!gptState.gptToggle ? "GPT Search" : "Homepage"}</button>
+        <img
+          className="my-7 mr-1 w-10 h-10 rounded-sm object-cover"
+          alt='usericon'
+          src={AVATAR} />
+        <button className='cursor-pointer font-bold text-white text-sm underline' onClick={handleSignOut}>{user.displayName.split(" ")[0] || "Profile"}</button>
       </div>}
     </div>
   )
