@@ -13,7 +13,7 @@ export const GPTSearchBar = () => {
 
         // OpenAI API custom hook
         let gptResults = {};
-        gptResults.choices = 'Andaz Apna Apna, Chupke Chupke, Gol Maal, Hera Pheri, Padosan'
+        gptResults.choices = 'Raaz, Bhoot, 1920, Tumbbad, Pizza'
         // API Call finished
 
         const gptMovies = gptResults.choices?.split(", ")
